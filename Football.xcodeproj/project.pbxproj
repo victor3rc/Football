@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F214B8C71A2DC79100474B6A /* Predictor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F214B8C51A2DC79100474B6A /* Predictor.cpp */; };
+		F21876EC1A5C302F00D02519 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F21876EA1A5C302F00D02519 /* Engine.cpp */; };
+		F250D02F1A128CA600CDE0E8 /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F250D02D1A128CA600CDE0E8 /* Simulation.cpp */; };
 		F2BCA29119AF31D900978193 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2BCA29019AF31D900978193 /* main.cpp */; };
 		F2BCA29319AF31D900978193 /* Football.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = F2BCA29219AF31D900978193 /* Football.1 */; };
+		F2BCA29B19AF325200978193 /* file_access.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2BCA29919AF325200978193 /* file_access.cpp */; };
+		F2D7D94519C364F800A9EC58 /* database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2D7D94319C364F800A9EC58 /* database.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,9 +30,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F214B8C51A2DC79100474B6A /* Predictor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Predictor.cpp; sourceTree = "<group>"; };
+		F214B8C61A2DC79100474B6A /* Predictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Predictor.h; sourceTree = "<group>"; };
+		F21876EA1A5C302F00D02519 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
+		F21876EB1A5C302F00D02519 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
+		F21876EE1A5D470700D02519 /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
+		F250D02D1A128CA600CDE0E8 /* Simulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Simulation.cpp; sourceTree = "<group>"; };
+		F250D02E1A128CA600CDE0E8 /* Simulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Simulation.h; sourceTree = "<group>"; };
 		F2BCA28D19AF31D900978193 /* Football */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Football; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2BCA29019AF31D900978193 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F2BCA29219AF31D900978193 /* Football.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Football.1; sourceTree = "<group>"; };
+		F2BCA29919AF325200978193 /* file_access.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_access.cpp; sourceTree = "<group>"; };
+		F2BCA29A19AF325200978193 /* file_access.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_access.h; sourceTree = "<group>"; };
+		F2D7D94319C364F800A9EC58 /* database.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = database.cpp; sourceTree = "<group>"; };
+		F2D7D94419C364F800A9EC58 /* database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = database.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +78,17 @@
 			children = (
 				F2BCA29019AF31D900978193 /* main.cpp */,
 				F2BCA29219AF31D900978193 /* Football.1 */,
+				F2BCA29919AF325200978193 /* file_access.cpp */,
+				F2BCA29A19AF325200978193 /* file_access.h */,
+				F2D7D94319C364F800A9EC58 /* database.cpp */,
+				F2D7D94419C364F800A9EC58 /* database.h */,
+				F250D02D1A128CA600CDE0E8 /* Simulation.cpp */,
+				F250D02E1A128CA600CDE0E8 /* Simulation.h */,
+				F214B8C51A2DC79100474B6A /* Predictor.cpp */,
+				F214B8C61A2DC79100474B6A /* Predictor.h */,
+				F21876EA1A5C302F00D02519 /* Engine.cpp */,
+				F21876EB1A5C302F00D02519 /* Engine.h */,
+				F21876EE1A5D470700D02519 /* Date.h */,
 			);
 			path = Football;
 			sourceTree = "<group>";
@@ -118,6 +145,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2BCA29119AF31D900978193 /* main.cpp in Sources */,
+				F250D02F1A128CA600CDE0E8 /* Simulation.cpp in Sources */,
+				F2BCA29B19AF325200978193 /* file_access.cpp in Sources */,
+				F2D7D94519C364F800A9EC58 /* database.cpp in Sources */,
+				F21876EC1A5C302F00D02519 /* Engine.cpp in Sources */,
+				F214B8C71A2DC79100474B6A /* Predictor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +229,23 @@
 		F2BCA29719AF31D900978193 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/mysql/include/,
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/mysql/include/,
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/usr/local/mysql/lib/ ";
+				New_Setting = "";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lmysqlclient",
+					"-lm",
+					"-lz",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -204,6 +253,18 @@
 		F2BCA29819AF31D900978193 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/mysql/include/,
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/usr/local/mysql/lib/ ";
+				New_Setting = "";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lmysqlclient",
+					"-lm",
+					"-lz",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -227,6 +288,7 @@
 				F2BCA29819AF31D900978193 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
