@@ -14,15 +14,11 @@
 #include <vector>
 #include <map>
 
-class file_access
+class FileAccess
 {
 public:
-    file_access();
-    
     void setFilename(const std::string& name);
-    std::pair<double,double> average(const std::string& team);
-    std::pair<double,double> standardDeviation(double averageHome, double averageAway, const std::string& team);
-    std::map<std::string, std::vector<std::pair<std::string, std::string>>> getCategories();
+    
     std::vector<std::vector<std::string>> getRows();
     
 private:

@@ -12,8 +12,8 @@
 		F250D02F1A128CA600CDE0E8 /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F250D02D1A128CA600CDE0E8 /* Simulation.cpp */; };
 		F2BCA29119AF31D900978193 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2BCA29019AF31D900978193 /* main.cpp */; };
 		F2BCA29319AF31D900978193 /* Football.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = F2BCA29219AF31D900978193 /* Football.1 */; };
-		F2BCA29B19AF325200978193 /* file_access.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2BCA29919AF325200978193 /* file_access.cpp */; };
-		F2D7D94519C364F800A9EC58 /* database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2D7D94319C364F800A9EC58 /* database.cpp */; };
+		F2BCA29B19AF325200978193 /* FileAccess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2BCA29919AF325200978193 /* FileAccess.cpp */; };
+		F2D7D94519C364F800A9EC58 /* Database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2D7D94319C364F800A9EC58 /* Database.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,10 +40,10 @@
 		F2BCA28D19AF31D900978193 /* Football */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Football; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2BCA29019AF31D900978193 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F2BCA29219AF31D900978193 /* Football.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Football.1; sourceTree = "<group>"; };
-		F2BCA29919AF325200978193 /* file_access.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_access.cpp; sourceTree = "<group>"; };
-		F2BCA29A19AF325200978193 /* file_access.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_access.h; sourceTree = "<group>"; };
-		F2D7D94319C364F800A9EC58 /* database.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = database.cpp; sourceTree = "<group>"; };
-		F2D7D94419C364F800A9EC58 /* database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = database.h; sourceTree = "<group>"; };
+		F2BCA29919AF325200978193 /* FileAccess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileAccess.cpp; sourceTree = "<group>"; };
+		F2BCA29A19AF325200978193 /* FileAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileAccess.h; sourceTree = "<group>"; };
+		F2D7D94319C364F800A9EC58 /* Database.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Database.cpp; sourceTree = "<group>"; };
+		F2D7D94419C364F800A9EC58 /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +78,10 @@
 			children = (
 				F2BCA29019AF31D900978193 /* main.cpp */,
 				F2BCA29219AF31D900978193 /* Football.1 */,
-				F2BCA29919AF325200978193 /* file_access.cpp */,
-				F2BCA29A19AF325200978193 /* file_access.h */,
-				F2D7D94319C364F800A9EC58 /* database.cpp */,
-				F2D7D94419C364F800A9EC58 /* database.h */,
+				F2BCA29919AF325200978193 /* FileAccess.cpp */,
+				F2BCA29A19AF325200978193 /* FileAccess.h */,
+				F2D7D94319C364F800A9EC58 /* Database.cpp */,
+				F2D7D94419C364F800A9EC58 /* Database.h */,
 				F250D02D1A128CA600CDE0E8 /* Simulation.cpp */,
 				F250D02E1A128CA600CDE0E8 /* Simulation.h */,
 				F214B8C51A2DC79100474B6A /* Predictor.cpp */,
@@ -146,8 +146,8 @@
 			files = (
 				F2BCA29119AF31D900978193 /* main.cpp in Sources */,
 				F250D02F1A128CA600CDE0E8 /* Simulation.cpp in Sources */,
-				F2BCA29B19AF325200978193 /* file_access.cpp in Sources */,
-				F2D7D94519C364F800A9EC58 /* database.cpp in Sources */,
+				F2BCA29B19AF325200978193 /* FileAccess.cpp in Sources */,
+				F2D7D94519C364F800A9EC58 /* Database.cpp in Sources */,
 				F21876EC1A5C302F00D02519 /* Engine.cpp in Sources */,
 				F214B8C71A2DC79100474B6A /* Predictor.cpp in Sources */,
 			);

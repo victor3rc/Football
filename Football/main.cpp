@@ -11,8 +11,8 @@
 #include <vector>
 #include <cmath>
 
-#include "file_access.h"
-#include "database.h"
+#include "FileAccess.h"
+#include "Database.h"
 #include "Predictor.h"
 #include "Simulation.h"
 
@@ -41,14 +41,14 @@ int main(int argc, const char * argv[])
             std::vector<std::string> files;
             addFiles(files);
             
-            file_access acc;
+            FileAccess file;
             Database db;
             
-            for(auto file : files)
+            for(auto f : files)
             {
-                acc.setFilename(folder + file);
+                file.setFilename(folder + f);
                 
-                auto rows = acc.getRows();
+                auto rows = file.getRows();
                 
                 db.insertResults(rows);
             }
@@ -144,8 +144,6 @@ int main(int argc, const char * argv[])
             d.year = e;
             
             sim.simulate(d);
-            //sim.printResultado();
-            //sim.resultsProbabilityFrequency(d);
         }
         else
         {
