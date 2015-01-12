@@ -16,13 +16,17 @@
 #include "Predictor.h"
 #include "Simulation.h"
 
-void addFiles(std::vector<std::string>& files)
+std::vector<std::string> addFiles()
 {
-    files.push_back("England_1_1415.csv");
+    std::vector<std::string> output;
+    
+    output.push_back("England_1_1415.csv");
 //    files.push_back("England_1_1314.csv")
 //    files.push_back("England_1_1213.csv");
 //    files.push_back("England_1_1112.csv");
 //    files.push_back("England_1_1011.csv");
+    
+    return output;
 }
 
 int main(int argc, const char * argv[])
@@ -36,10 +40,13 @@ int main(int argc, const char * argv[])
         
         if(menu == "u")
         {
+            std::string table;
             std::string folder = "/Users/victorcardozo/Documents/Football/League_sheets/";
             
-            std::vector<std::string> files;
-            addFiles(files);
+            std::cout << "Update chosen. Which table to update? " << std::endl;
+            std::getline(std::cin, table);
+            
+            auto files = addFiles();
             
             FileAccess file;
             Database db;
@@ -50,7 +57,7 @@ int main(int argc, const char * argv[])
                 
                 auto rows = file.getRows();
                 
-                db.insertResults(rows);
+                db.insertResults(table, rows);
             }
         }
         else if(menu == "p")

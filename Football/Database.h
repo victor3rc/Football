@@ -22,9 +22,27 @@ public:
     Database();
     ~Database();
     
-    void insertResults(const std::vector<std::vector<std::string>>& rows);
-    void insertBottomAverage(const std::pair<double, double>& av, int year);
-    double average(bool scored, bool home, const std::string& team,
+    //Class used to insert results into database.
+    //'table' is table to insert values into.
+    //'rows' contains rows to be inserted.
+    void insertResults(const std::string& table, const std::vector<std::vector<std::string>>& rows);
+    
+    //Insert values into BottomAverage table in database.
+    //It's the table which holds average of goals scored at home and away by bottom 10 teams.
+    //'table' is table to insert values into.
+    //'averages' is pair of averages (home and away).
+    //'year' is year of averages to be inserted.
+    void insertBottomAverage(const std::string& table, const std::pair<double, double>& averages, int year);
+    
+    //Calculates average of goals scored or conceded by a team, at home or away, during a period of time.
+    //'scored' indicates whether to find goals scored (true) or conceded (false).
+    //'home' indicates whether to look at games played at home (true) or away (false).
+    //'team' is team to calculate average for.
+    //'table' is table where results are stored.
+    //'start' is date to calculate average from.
+    //'end' is date to calculate average until.
+    //returns average of goals scored/conceded in period specified.
+    double goalsAverage(bool scored, bool home, const std::string& team, const std::string& table,
                    const std::string& start, const std::string& end);
     
     double lastMatchesAverage(bool scored, bool home, const std::string& team, int matches, struct Date d);
@@ -48,6 +66,8 @@ private:
 
     std::string teamsString(const std::vector<std::string>& teams);
     double bottomMatchesAverage(int year, int matches);
+    std::string locationColumn(bool home);
+    std::string goalsColumn(bool scored, bool home);
     
 };
 

@@ -30,15 +30,22 @@ Database::~Database()
     mysql_close(m_connection);
 }
 
-void Database::insertResults(const std::vector<std::vector<std::string>>& rows)
+void Database::insertResults(const string& table, const std::vector<std::vector<std::string>>& rows)
 {
     int state;
 	
-    for(auto row : rows)
+    for(auto& row : rows)
     {
-        std::string query = "insert into england values('" + row.at(0) + "', '" + row.at(1)+ "', '" +
-                            row.at(2) + "', '" + row.at(3) + "', '" +  row.at(4) + "', '" + row.at(5) +
-                            "', '" + row.at(6) + "', '" + row.at(7) + "')";
+        std::string query = "insert into " + table + " values(";
+        
+        //Add values to query.
+        for(auto& field : row)
+        {
+            query += "'" + field + "',";
+        }
+        
+        //Replace last comma.
+        query.replace(query.end()-1, query.end(), ")");
         
         state = mysql_query(m_connection, query.c_str());
 	
@@ -50,12 +57,12 @@ void Database::insertResults(const std::vector<std::vector<std::string>>& rows)
     }
 }
 
-void Database::insertBottomAverage(const std::pair<double, double>& av, int year)
+void Database::insertBottomAverage(const string& table, const std::pair<double, double>& averages, int year)
 {
     int state;
 	
-    std::string query = "insert into bottomAverageengland values('" + std::to_string(year) + "', '"
-                        + std::to_string(av.first) + "', '" + std::to_string(av.second) + "')";
+    std::string query = "insert into " + table + " values('" + std::to_string(year) + "', '"
+                        + std::to_string(averages.first) + "', '" + std::to_string(averages.second) + "')";
         
     state = mysql_query(m_connection, query.c_str());
         
@@ -66,38 +73,18 @@ void Database::insertBottomAverage(const std::pair<double, double>& av, int year
     }
 }
 
-double Database::average(bool scored, bool home, const std::string& team,
-                         const std::string& start, const std::string& end)
+double Database::goalsAverage(bool scored, bool home, const string& team,
+                         const string& table, const string& start, const string& end)
 {
-    std::string query;
-    std::string goalsColumn, teamColumn;
     int state;
-    
     MYSQL_RES *result;
 	MYSQL_ROW row;
     
-    if(home)
-    {
-        teamColumn = "home";
-    }
-    else
-    {
-        teamColumn = "away";
-    }
+    string location = locationColumn(home);
+    string goals = goalsColumn(scored, home);
     
-    if ((scored && home) || (!scored && !home))
-    {
-        goalsColumn = "fthg";
-    }
-    else if ((scored && !home) || (!scored && home))
-    {
-        goalsColumn = "ftag";
-    }
-    
-    query = "select " + goalsColumn + " from england where " + teamColumn + " = '" + team +
+    string query = "select " + goals + " from " + table + " where " + location + " = '" + team +
             "' and date > '" + start + "' and date < '" + end + "'";
-    
-    //std::cout << query << std::endl;
     
     state = mysql_query(m_connection, query.c_str());
     
@@ -109,12 +96,12 @@ double Database::average(bool scored, bool home, const std::string& team,
 	
 	result = mysql_store_result(m_connection);
 
-    int games = 0, goals = 0;
+    int games = 0, netted = 0;
     
-    //If team not present in dates asked, return 0.
+    //If team not present in dates asked, return -1.
     if ( ( row=mysql_fetch_row(result)) == NULL )
     {
-        return 0.0;
+        return -1.0;
     }
     
 	while ( ( row=mysql_fetch_row(result)) != NULL )
@@ -125,38 +112,21 @@ double Database::average(bool scored, bool home, const std::string& team,
 	
 	mysql_free_result(result);
     
-    return (double)goals/games;
+    return (double)netted/games;
 }
 
 double Database::lastMatchesAverage(bool scored, bool home, const std::string& team, int matches, Date d)
 {
     double output;
-    std::string query;
-    std::string goalsColumn, teamColumn;
     int state;
     
     MYSQL_RES *result;
 	MYSQL_ROW row;
     
-    if(home)
-    {
-        teamColumn = "home";
-    }
-    else
-    {
-        teamColumn = "away";
-    }
+    string location = locationColumn(home);
+    string goals = goalsColumn(scored, home);
     
-    if ((scored && home) || (!scored && !home))
-    {
-        goalsColumn = "fthg";
-    }
-    else if ((scored && !home) || (!scored && home))
-    {
-        goalsColumn = "ftag";
-    }
-
-    query = "select " + goalsColumn + " from england where " + teamColumn + " = '" +
+    string query = "select " + goals + " from england where " + location + " = '" +
     team + "' and date < '" + to_string(d.year) + "-" +
     to_string(d.month) + "-" + to_string(d.day) + "' order by date desc limit " + std::to_string(matches);
     
@@ -170,7 +140,7 @@ double Database::lastMatchesAverage(bool scored, bool home, const std::string& t
 	
 	result = mysql_store_result(m_connection);
     
-    int games = 0, goals = 0;
+    int games = 0, netted = 0;
     
 	while ( ( row=mysql_fetch_row(result)) != NULL )
 	{
@@ -183,11 +153,11 @@ double Database::lastMatchesAverage(bool scored, bool home, const std::string& t
     {
         double remaining = bottomMatchesAverage(d.year-1, matches-games);
         
-        output = (double)(goals + remaining)/matches;
+        output = (double)(netted + remaining)/matches;
     }
     else
     {
-        output = (double)goals/games;
+        output = (double)netted/games;
     }
 	
 	mysql_free_result(result);
@@ -651,6 +621,30 @@ double Database::bottomMatchesAverage(int year, int matches)
     }
     
     return output*matches;
+}
+
+string Database::locationColumn(bool home)
+{
+    if(home)
+    {
+        return "home";
+    }
+    else
+    {
+        return "away";
+    }
+}
+
+string Database::goalsColumn(bool scored, bool home)
+{
+    if ((scored && home) || (!scored && !home))
+    {
+        return "fthg";
+    }
+    else
+    {
+        return "ftag";
+    }
 }
 
 
