@@ -19,7 +19,7 @@
 class Database
 {
 public:
-    Database();
+    Database(const std::string& league);
     ~Database();
     
     //Class used to insert results into database.
@@ -43,19 +43,37 @@ public:
     //'end' is date to calculate average until.
     //returns average of goals scored/conceded in period specified.
     double goalsAverage(bool scored, bool home, const std::string& team, const std::string& table,
-                   const std::string& start, const std::string& end);
+                        const std::string& start, const std::string& end);
     
-    double lastMatchesAverage(bool scored, bool home, const std::string& team, int matches, struct Date d);
-    double lastMatchesAverage(const std::string& team, struct Date d, int matches);
+    //Calculates average of goals scored/conceded at home/away in number of matches specified, from date given.
+    //'scored' indicates if requesting goals scored (true) or conceded (false).
+    //'home' indicates if requested goals at home (true) or away (false).
+    //'team' is team average calculated regards.
+    //'matches' is number of matches to calculate average for.
+    //'date' is date to calculate average from.
+    //returns average found.
+    double lastMatchesAverage(bool scored, bool home, const std::string& team, int matches, struct Date date);
     
+    //Calculates average of goals scored both at home/away in number of matches specified, from date given, in the last year only.
+    //'team' is team average calculated regards.
+    //'date' is date to calculate average from.
+    //'matches' is number of matches to calculate average for.
+    //returns average found.
+    double lastMatchesAverage(const std::string& team, struct Date date, int matches);
+    
+    //Query for bottom 10 teams in year specified.
+    //'year' is year to query for.
+    //returns a vector containing bottom teams in strings.
     std::vector<std::string> bottomTeams(int year);
+    
+    
     std::pair<double, double> bottomAverage(int year);
     
     std::vector<std::pair<std::string, std::string>> getMatches(const struct Date& d);
     std::map<std::string, std::vector<double>> getOdds(const struct Date& d);
     std::map<std::string, std::pair<int, int>> getResults(const struct Date& d);
     
-    std::map<double, double> getStakes(const std::string& league, const std::string& res);
+    std::map<double, double> getStakes(const std::string& res);
     std::vector<std::string> parameters(const std::string& name);
     std::vector<double> weights(const std::string& name);
     
@@ -63,6 +81,7 @@ public:
     
 private:
     MYSQL *m_connection, m_mysql;
+    std::string m_league;
 
     std::string teamsString(const std::vector<std::string>& teams);
     double bottomMatchesAverage(int year, int matches);

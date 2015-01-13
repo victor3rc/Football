@@ -13,9 +13,10 @@
 using namespace std;
 
 Predictor::Predictor(const string& league, const string& parameters)
+    : Engine(league)
 {
     //Initialise engine variables.
-    init(league, parameters);
+    init(parameters);
 }
 
 void Predictor::setPurse(double val)

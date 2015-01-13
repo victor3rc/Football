@@ -8,12 +8,12 @@
 #include <cmath>
 
 #include "Simulation.h"
-//#include "database.h"
 
 using namespace std;
 
-Simulation::Simulation(int day, int month, int year, const string& league, const string& parameters, bool research)
-    : m_research(research)
+Simulation::Simulation(int day, int month, int year, const string& parameters, const string& league, bool research)
+    : m_research(research),
+      Engine(league)
 {
     //Set research parameters.
     if(m_research)
@@ -30,7 +30,7 @@ Simulation::Simulation(int day, int month, int year, const string& league, const
     m_purse = 100.0;
     
     //initialise engine variables.
-    init(league, parameters);
+    init(parameters);
 }
 
 void Simulation::simulate(Date limit)

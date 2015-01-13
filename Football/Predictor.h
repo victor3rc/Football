@@ -20,7 +20,6 @@ class Predictor : public Engine
 {
 public:
     //Constructor
-    //'league' is league to predict.
     //'parameters' are the name of the parameters to be used in prediction.
     Predictor(const std::string& league, const std::string& parameters);
     

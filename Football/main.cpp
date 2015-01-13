@@ -32,11 +32,15 @@ std::vector<std::string> addFiles()
 int main(int argc, const char * argv[])
 {
     std::string menu = "v";
+    std::string league;
     
     while(menu != "q")
     {
         std::cout << "Update, Simulate or Predict? (u/s/p - 'q' to quit)";
         std::getline(std::cin, menu);
+        
+        std::cout << "Predictor chosen. Which league?" << std::endl;
+        std::getline(std::cin, league);
         
         if(menu == "u")
         {
@@ -49,7 +53,7 @@ int main(int argc, const char * argv[])
             auto files = addFiles();
             
             FileAccess file;
-            Database db;
+            Database db(league);
             
             for(auto f : files)
             {
@@ -62,10 +66,7 @@ int main(int argc, const char * argv[])
         }
         else if(menu == "p")
         {
-            std::string league, parameters;
-            
-            std::cout << "Predictor chosen. Which league?" << std::endl;
-            std::getline(std::cin, league);
+            std::string parameters;
             
             std::cout << "Choose parameters: ";
             std::getline(std::cin, parameters);
@@ -116,11 +117,8 @@ int main(int argc, const char * argv[])
         }
         else if(menu == "s")
         {
-            std::string league, parameters, start = "2014", end = "2015", r;
+            std::string parameters, start = "2014", end = "2015", r;
             bool research = false;
-            
-            std::cout << "Simulator chosen. Which league?" << std::endl;
-            std::getline(std::cin, league);
             
             std::cout << "Choose parameters: ";
             std::getline(std::cin, parameters);
@@ -142,7 +140,7 @@ int main(int argc, const char * argv[])
             int s = std::stoi(start);
             int e = std::stoi(end);
             
-            Simulation sim(1, 8, s, league, parameters, research);
+            Simulation sim(1, 8, s, parameters, league, research);
             
             Date d;
             

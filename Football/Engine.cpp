@@ -13,12 +13,16 @@
 
 using namespace std;
 
-void Engine::init(const string& league, const string& parameters)
+Engine::Engine(const string& league)
+    : m_db(league)
+{}
+
+void Engine::init(const string& parameters)
 {
     //Get stakes in database.
-    m_homeStake = m_db.getStakes(league, "home");
-    m_awayStake = m_db.getStakes(league, "away");
-    m_drawStake = m_db.getStakes(league, "draw");
+    m_homeStake = m_db.getStakes("home");
+    m_awayStake = m_db.getStakes("away");
+    m_drawStake = m_db.getStakes("draw");
     
     //Get weights in database.
     m_weights = m_db.weights(parameters);

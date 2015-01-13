@@ -23,10 +23,10 @@ public:
     //'day' is day to start simulation.
     //'month' is month to start simulation.
     //'year' is year to start simulation.
-    //'league' is league to simulate.
     //'parameters' are the name of the parameters to be used in sumulation.
+    //'league' league to run simulations for.
     //'research' indicates if research is to be carried out or not.
-    Simulation(int day, int month, int year, const std::string& league, const std::string& parameters, bool research);
+    Simulation(int day, int month, int year, const std::string& parameters, const std::string& league, bool research);
     
     //Function to run simulation.
     //'Date' is the end date of simulation.

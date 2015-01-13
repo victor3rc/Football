@@ -19,11 +19,14 @@
 class Engine
 {
 public:
+    Engine(const std::string& league);
+    
     //Initialise parameters.
-    void init(const std::string& league, const std::string& parameters);
+    //'parameters' parameters name to load.
+    void init(const std::string& parameters);
     
     //Function to decide bet to be made.
-    //Takes in vector with calculated home probability, draw probability and away probability.
+    //'prob' calculated home probability[0], draw probability[1] and away probability[2] in vector.
     int makeDecision(const std::vector<double>& prob);
     
     //Calculate stake based on betting decision given.
