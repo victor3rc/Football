@@ -38,19 +38,24 @@ std::vector<std::vector<std::string>> FileAccess::getRows()
             
             try
             {
+                //Swap day value for year value before inserting in database.
                 std::swap(contents.at(1)[0], contents.at(1)[6]);
                 std::swap(contents.at(1)[1], contents.at(1)[7]);
                 
                 std::vector<std::string> vec;
                 
-                vec.push_back(contents.at(1));
-                vec.push_back(contents.at(2));
-                vec.push_back(contents.at(3));
-                vec.push_back(contents.at(4));
-                vec.push_back(contents.at(5));
-                vec.push_back(contents.at(38));
-                vec.push_back(contents.at(39));
-                vec.push_back(contents.at(40));
+                vec.push_back(contents.at(1));//date
+                vec.push_back(contents.at(2));//home team
+                vec.push_back(contents.at(3));//away team
+                vec.push_back(contents.at(4));//home goals scored
+                vec.push_back(contents.at(5));//away goals scored
+                vec.push_back(contents.at(11));//home shots
+                vec.push_back(contents.at(12));//away shots
+                vec.push_back(contents.at(13));//home shots target
+                vec.push_back(contents.at(14));//away shots target
+                vec.push_back(contents.at(38));//Williah Hill home odds
+                vec.push_back(contents.at(39));//Williah Hill draw odds
+                vec.push_back(contents.at(40));//Williah Hill away odds
                 
                 output.push_back(vec);
             }

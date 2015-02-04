@@ -351,9 +351,9 @@ vector<pair<string, string>> Database::getMatches(const Date& d)
 }
 
 //Returns map with home team + (home odds, draw odds, away odds, result (1,2,3))
-map<string, vector<double>> Database::getOdds(const Date& d)
+map<string, probabilities> Database::getOdds(const Date& d)
 {
-    map<string, vector<double>> output;
+    map<string, probabilities> output;
     
     int state;
     MYSQL_RES *result;
@@ -376,13 +376,13 @@ map<string, vector<double>> Database::getOdds(const Date& d)
         
         while((row=mysql_fetch_row(result)) != NULL )
         {
-            vector<double> temp;
+            probabilities temp;
             int fthg, ftag;
             
             //insert odds for home, draw and away results.
-            temp.push_back(stod(row[4]));
-            temp.push_back(stod(row[5]));
-            temp.push_back(stod(row[6]));
+            temp.home = stod(row[4]);
+            temp.draw = stod(row[5]);
+            temp.away = stod(row[6]);
             
             //Home and Away goals.
             fthg = stoi(row[2]);
@@ -391,15 +391,15 @@ map<string, vector<double>> Database::getOdds(const Date& d)
             //indicate home, away or draw result.
             if(fthg > ftag)
             {
-                temp.push_back(1.0);
+                temp.result = HOME;
             }
             else if(fthg < ftag)
             {
-                temp.push_back(3.0);
+                temp.result = AWAY;
             }
             else
             {
-                temp.push_back(2.0);
+                temp.result = DRAW;
             }
             
             //Insert home team paired with vector holding odds and result.

@@ -25,31 +25,50 @@ void Predictor::setPurse(double val)
 }
 
 void Predictor::predict(const std::string &home, const std::string &away,
-                        const vector<double>& odds)
+                        const probabilities& odds)
 {
     //Get current date
     Date date = currentDateTime();
     
     //Get probabilities
-    auto prob = getProbrabilities(home, away, date);
+    auto prob = probrability(home, away, date);
     
     //Print probabilities calculated
-    cout << home << ": " << prob[0] << " | draw: " << prob[1] << " | " << away << ": " << prob[2] << endl;
+    cout << home << ": " << prob.home << " | draw: " << prob.draw << " | " << away << ": " << prob.away << endl;
     
     //Make betting decision based on probabilities.
-    int dec = makeDecision(prob);
+    auto dec = makeDecision(prob);
     
     //Print decision
     cout << "Decision: " << decision(dec) << endl;
     
     //If decided to bet
-    if(dec != 0)
+    if(dec != NONE)
     {
+        double stake = 0, probability = 0, odd = 0;
+        
+        switch(dec)
+        {
+            case HOME:
+                probability = prob.home;
+                odd = 1/odds.home;
+                break;
+            case DRAW:
+                probability = prob.draw;
+                odd = 1/odds.draw;
+                break;
+            case AWAY:
+                probability = prob.away;
+                odd = 1/odds.away;
+                break;
+            case NONE:;
+        }
+        
         //Calculate stake to bet. Passing probability of result chosen, its odds and decision.
-        double stake = calculateStake(prob[dec-1], odds[dec-1], dec);
+        stake = calculateStake(probability, odd, dec);
         
         //Print probabilities in question (calculated and by bookies)
-        cout << "Bookies: " << 1/odds[dec-1] << " | Calculated: " << prob[dec-1] << endl;
+        cout << "Bookies: " << odd << " | Calculated: " << probability << endl;
         
         //Deduct from purse.
         m_purse -= stake;
@@ -77,26 +96,6 @@ const Date Predictor::currentDateTime()
     date.day = std::stoi(d.substr(8, 2));
     
     return date;
-}
-
-const std::string Predictor::decision(int d)
-{
-    if(d == 1)
-    {
-        return "Home";
-    }
-    else if(d == 2)
-    {
-        return "Draw";
-    }
-    else if(d == 3)
-    {
-        return "Away";
-    }
-    else
-    {
-        return "No bet";
-    }
 }
 
 

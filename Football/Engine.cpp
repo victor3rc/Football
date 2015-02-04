@@ -32,46 +32,44 @@ void Engine::init(const string& parameters)
     this->setParameters(params);
 }
 
-int Engine::makeDecision(const vector<double>& prob)
+Result Engine::makeDecision(const probabilities& prob)
 {
     //Difference between home win probability and away win probability.
-    double difference = prob[0] - prob[2];
+    double difference = prob.home - prob.away;
     
     if(difference > m_homeThresh)
     {
-        return 1;
+        return HOME;
     }
-    else if(abs(difference) <= m_drawThresh/2 && prob[1] > m_drawThresh)
+    else if(abs(difference) <= m_drawThresh/2 && prob.draw > m_drawThresh)
     {
-        return 2;
+        return DRAW;
     }
     else if(difference < m_awayThresh)
     {
-        return 3;
+        return AWAY;
     }
     
-    return 0;
+    return NONE;
 }
 
-double Engine::calculateStake(const double probability, const double odds, int decision)
+double Engine::calculateStake(const double probability, const double odds, Result decision)
 {
-    double bookieOdds = 1/odds;
-    
     //If bookie odds aren't high enough, void bet.
-    if(bookieOdds > m_maxBookieOdds)
+    if(odds > m_maxBookieOdds)
     {
         return 0.0;
     }
     else
     {
-        double diff = probability-bookieOdds;
+        double diff = probability-odds;
         
         //Use stake limits relevant to betting decision given.
-        if(decision == 1)
+        if(decision == HOME)
         {
             return findStake(m_homeStake, diff);
         }
-        else if(decision == 3)
+        else if(decision == AWAY)
         {
             return findStake(m_awayStake, diff);
         }
@@ -82,7 +80,7 @@ double Engine::calculateStake(const double probability, const double odds, int d
     }
 }
 
-vector<double> Engine::getProbrabilities(const std::string& home, const std::string& away, const Date& date)
+probabilities Engine::probrability(const std::string& home, const std::string& away, const Date& date)
 {
     //Get goal average for different periods of time.
     double homeAverages[4], awayAverages[4];
@@ -108,6 +106,26 @@ vector<double> Engine::getProbrabilities(const std::string& home, const std::str
     //cout << "AWAY (A): " << awayAverages[0] << " (All): " << awayAverages[1] << " (H): " << awayAverages[2] << endl;
     
     return calculateProbabilities(homeAverage, awayAverage);
+}
+
+const std::string Engine::decision(int d)
+{
+    if(d == HOME)
+    {
+        return "Home";
+    }
+    else if(d == DRAW)
+    {
+        return "Draw";
+    }
+    else if(d == AWAY)
+    {
+        return "Away";
+    }
+    else
+    {
+        return "No bet";
+    }
 }
 
 double Engine::findStake(const std::map<double, double> &stakes, double diff)
@@ -146,10 +164,11 @@ void Engine::setParameters(const std::vector<std::string> &parameters)
     }
 }
 
-vector<double> Engine::calculateProbabilities(double homeAverage, double awayAverage)
+probabilities Engine::calculateProbabilities(double homeAverage, double awayAverage)
 {
     //[0] home win, [1] draw, [2] away win
-    vector<double> output = {0.0, 0.0, 0.0};
+    //vector<double> output = {0.0, 0.0, 0.0};
+    probabilities output;
     
     for (int i = 0; i < 10; ++i)
     {
@@ -161,15 +180,19 @@ vector<double> Engine::calculateProbabilities(double homeAverage, double awayAve
             
             if(i > x)
             {
-                output[0] += probability;
+                //output[0] += probability;
+                output.home += probability;
+                
             }
             else if (i == x)
             {
-                output[1] += probability;
+                //output[1] += probability;
+                output.draw += probability;
             }
             else if (i < x)
             {
-                output[2] += probability;
+                //output[2] += probability;
+                output.away += probability;
             }
         }
     }

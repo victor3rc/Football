@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2063E211A7D160000D7359F /* Research.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2063E1F1A7D160000D7359F /* Research.cpp */; };
+		F2063E241A812EAF00D7359F /* Match.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2063E221A812EAF00D7359F /* Match.cpp */; };
 		F214B8C71A2DC79100474B6A /* Predictor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F214B8C51A2DC79100474B6A /* Predictor.cpp */; };
 		F21876EC1A5C302F00D02519 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F21876EA1A5C302F00D02519 /* Engine.cpp */; };
 		F250D02F1A128CA600CDE0E8 /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F250D02D1A128CA600CDE0E8 /* Simulation.cpp */; };
@@ -30,6 +32,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F2063E1F1A7D160000D7359F /* Research.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Research.cpp; sourceTree = "<group>"; };
+		F2063E201A7D160000D7359F /* Research.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Research.h; sourceTree = "<group>"; };
+		F2063E221A812EAF00D7359F /* Match.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Match.cpp; sourceTree = "<group>"; };
+		F2063E231A812EAF00D7359F /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
 		F214B8C51A2DC79100474B6A /* Predictor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Predictor.cpp; sourceTree = "<group>"; };
 		F214B8C61A2DC79100474B6A /* Predictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Predictor.h; sourceTree = "<group>"; };
 		F21876EA1A5C302F00D02519 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
@@ -89,6 +95,10 @@
 				F21876EA1A5C302F00D02519 /* Engine.cpp */,
 				F21876EB1A5C302F00D02519 /* Engine.h */,
 				F21876EE1A5D470700D02519 /* Date.h */,
+				F2063E1F1A7D160000D7359F /* Research.cpp */,
+				F2063E201A7D160000D7359F /* Research.h */,
+				F2063E221A812EAF00D7359F /* Match.cpp */,
+				F2063E231A812EAF00D7359F /* Match.h */,
 			);
 			path = Football;
 			sourceTree = "<group>";
@@ -144,12 +154,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2063E211A7D160000D7359F /* Research.cpp in Sources */,
 				F2BCA29119AF31D900978193 /* main.cpp in Sources */,
 				F250D02F1A128CA600CDE0E8 /* Simulation.cpp in Sources */,
 				F2BCA29B19AF325200978193 /* FileAccess.cpp in Sources */,
 				F2D7D94519C364F800A9EC58 /* Database.cpp in Sources */,
 				F21876EC1A5C302F00D02519 /* Engine.cpp in Sources */,
 				F214B8C71A2DC79100474B6A /* Predictor.cpp in Sources */,
+				F2063E241A812EAF00D7359F /* Match.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@
 
 #include "database.h"
 #include "Date.h"
+#include "Match.h"
 
 class Engine
 {
@@ -26,15 +27,15 @@ public:
     void init(const std::string& parameters);
     
     //Function to decide bet to be made.
-    //'prob' calculated home probability[0], draw probability[1] and away probability[2] in vector.
-    int makeDecision(const std::vector<double>& prob);
+    //'prob' calculated home, draw and away probabilities.
+    Result makeDecision(const probabilities& prob);
     
     //Calculate stake based on betting decision given.
     //'probability' is probability calculated for bet chosen.
     //'odds' are the odds given by the bookies.
     //'decision' is the bet chosen: '1' for home, '2' for a draw and '3' for away.
     //Returns bet stake.
-    double calculateStake(const double probability, const double odds, int decision);
+    double calculateStake(const double probability, const double odds, Result decision);
    
     //Calculates probabilities of home win, draw and away win, using poisson distribution.
     //'home' is team playing at home.
@@ -42,10 +43,16 @@ public:
     //'date' is date game is taking place.
     //'local' is number of games played locally to be used to calculate average of goals.
     //'overall' is number of games played everywhere to be used to calculate average of goals.
-    std::vector<double> getProbrabilities(const std::string& home, const std::string& away,
-                                          const struct Date& date);
+    //Returns struct containing probabilities calculated
+    probabilities probrability(const std::string& home, const std::string& away,
+                               const struct Date& date);
     
 protected:
+    //Generate string indicating decision.
+    //'d' int indicating decision.
+    //Returns a string indicating decision.
+    const std::string decision(int d);
+    
     //Variables to hold parameters found in database.
     double m_purse, m_homeThresh, m_awayThresh, m_drawThresh, m_maxBookieOdds;
     int m_local, m_overall;
@@ -72,8 +79,8 @@ private:
     //Calculate probabilities using poisson distribution, for 0 to 10 goals happening.
     //'homeAverage' average of goals scored by home team.
     //'awayAverage' average of goals scored by away team.
-    //Returns vector with probabilities. [0] home win, [1] draw, [2] away win.
-    std::vector<double> calculateProbabilities(double homeAverage, double awayAverage);
+    //Returns struct with probabilities.
+    probabilities calculateProbabilities(double homeAverage, double awayAverage);
     
     //Calculate the probabilities of an event happening using the poisson distribution.
     //'average' is average of goals.

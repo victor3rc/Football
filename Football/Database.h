@@ -15,6 +15,7 @@
 #include <mysql.h>
 
 #include "Date.h"
+#include "Match.h"
 
 class Database
 {
@@ -70,7 +71,7 @@ public:
     std::pair<double, double> bottomAverage(int year);
     
     std::vector<std::pair<std::string, std::string>> getMatches(const struct Date& d);
-    std::map<std::string, std::vector<double>> getOdds(const struct Date& d);
+    std::map<std::string, probabilities> getOdds(const struct Date& d);
     std::map<std::string, std::pair<int, int>> getResults(const struct Date& d);
     
     std::map<double, double> getStakes(const std::string& res);

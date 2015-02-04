@@ -49,26 +49,26 @@ void Simulation::simulate(Date limit)
         if(!matches.empty())
         {
             //Container to hold team playing at home, probabilities calculated and betting decision.
-            map<string, vector<double>> bets;
+            map<string, probabilities> bets;
             
             //Cycle through all matches found for this date in database.
             for(auto& m : matches)
             {
                 //get poisson probabilities for given match.
-                auto prob = getProbrabilities(m.first, m.second, m_date);
+                auto prob = probrability(m.first, m.second, m_date);
                 
                 //Make betting decision.
-                prob.push_back((double)makeDecision(prob));
+                prob.result =  makeDecision(prob);
                 
                 //If decided to bet, add it to map holding the bets to be made.
-                if(prob[3] != 0.0)
+                if(prob.result != NONE)
                 {
-                    bets.insert(pair<string,vector<double>>(m.first, prob));
+                    bets.insert(pair<string,probabilities>(m.first, prob));
                 }
                 
                 //Print probabilities and betting decision.
-                cout << m.first << ": " << prob[0] << " | draw: " << prob[1] <<
-                " | " << m.second << ": " << prob[2] << "---> " << prob[3] << endl;
+                cout << m.first << ": " << prob.home << " | draw: " << prob.draw <<
+                " | " << m.second << ": " << prob.away << "---> " << decision(prob.result) << endl;
             }
             
             //Make bets.
@@ -85,7 +85,7 @@ void Simulation::simulate(Date limit)
     }
 }
 
-void Simulation::makeBets(const map<string, vector<double>>& bets)
+void Simulation::makeBets(const map<string, probabilities>& bets)
 {
     //Get odds for matches taking place in date given. Gets map with home team paired with vector containing odds + result.
     auto odds = m_db.getOdds(m_date);
@@ -102,33 +102,39 @@ void Simulation::makeBets(const map<string, vector<double>>& bets)
         {
             continue;
         }
-        else
+        
+        //Calculate stake to bet. Passing probability of result chosen, its odds and decision.
+        double stake = 0, probability = 0, odd = 0;
+        
+        switch(decision)
         {
-            decision = it->second[3];
+            case HOME:
+                probability = it->second.home;
+                odd = o.second.home;
+                break;
+            case DRAW:
+                probability = it->second.draw;
+                odd = o.second.draw;
+                break;
+            case AWAY:
+                probability = it->second.away;
+                odd = o.second.away;
+                break;
+            case NONE:;
         }
         
-        //Calculate stake. Pass: probability calculated, probability from bookies (from odds), decision.
-        double stake = calculateStake(it->second[(int)decision-1], o.second[(int)decision-1], decision);
+        //Calculate stake to bet. Passing probability of result chosen, its odds and decision.
+        stake = calculateStake(probability, 1/odd, it->second.result);
         
-        //Probability to study in research.
-        double probability;
-        
-        if(m_research)
+        if(m_research && m_useBookiesProbability)
         {
-            if(m_useBookiesProbability)
-            {
-                probability = 1/o.second[(int)decision-1];
-            }
-            else
-            {
-                probability = it->second[(int)decision-1];
-            }
+            probability = odd;
         }
         
         //if decision equals outcome adjust purse by looking at odds or deducting stake.
-        if(decision == o.second[3])
+        if(it->second.result == o.second.result)
         {
-            m_purse += (o.second[(int)decision-1]-1)*stake;
+            m_purse += (odd-1)*stake;
             
             if(m_research)
             {
@@ -145,9 +151,9 @@ void Simulation::makeBets(const map<string, vector<double>>& bets)
             }
         }
         
-        cout << m_date.year << "-" << m_date.month << "-" << m_date.day << " " << o.first << ": " << o.second[0] <<
-        "|" << o.second[1] << "|" << o.second[2] << endl << "decision/outcome: " << decision << "/" << o.second[3] <<
-        " stake: " << stake << " purse: " << m_purse << endl;
+        cout << m_date.year << "-" << m_date.month << "-" << m_date.day << " " << o.first << ": " << o.second.home <<
+        "|" << o.second.draw << "|" << o.second.away << endl << "decision/outcome: " << Engine::decision(decision) <<
+        "/" << Engine::decision(o.second.result) << " stake: " << stake << " purse: " << m_purse << endl;
     }
 }
 

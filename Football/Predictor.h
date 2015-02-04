@@ -31,16 +31,11 @@ public:
     //'away' is team playing away.
     //'odds' are the [1] home, [2] draw and [3] away odds calculated.
     void predict(const std::string& home, const std::string& away,
-                 const std::vector<double>& odds);
+                 const probabilities& odds);
     
 private:
     //returns current date in which prediction is being made.
     const Date currentDateTime();
-    
-    //Generate string indicating decision.
-    //'d' int indicating decision.
-    //Returns a string indicating decision.
-    const std::string decision(int d);
 };
 
 #endif /* defined(__Football__Predictor__) */

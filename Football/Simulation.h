@@ -36,7 +36,7 @@ private:
     //Function used to simulate taking bets.
     //'bets' is the container indicating which bets are to be made.
     //It contains the home team as a key and a vector of the probabilities calculated [0-2] and the decision [3].
-    void makeBets(const std::map<std::string, std::vector<double>>& bets);
+    void makeBets(const std::map<std::string, probabilities>& bets);
     
     //Function used to check if date given is before m_date.
     //Returns 'true' if it is and 'false' if it isn't.

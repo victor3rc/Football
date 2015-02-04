@@ -20,11 +20,7 @@ std::vector<std::string> addFiles()
 {
     std::vector<std::string> output;
     
-    output.push_back("England_1_1415.csv");
-//    files.push_back("England_1_1314.csv")
-//    files.push_back("England_1_1213.csv");
-//    files.push_back("England_1_1112.csv");
-//    files.push_back("England_1_1011.csv");
+    output.push_back("England_1_1011.csv");
     
     return output;
 }
@@ -74,7 +70,7 @@ int main(int argc, const char * argv[])
             Predictor pre(league, parameters);
             
             std::string home, away, pur, c = "y";
-            std::vector<double> odds = {0.0, 0.0, 0.0};
+            probabilities odds;
             double p = 0.0;
             
             std::cout << "Purse: ";
@@ -97,15 +93,15 @@ int main(int argc, const char * argv[])
                 
                 std::cout << "Home odds: ";
                 std::getline(std::cin, h);
-                odds[0] = std::stod(h);
+                odds.home = std::stod(h);
                 
                 std::cout << "Draw odds: ";
                 std::getline(std::cin, d);
-                odds[1] = std::stod(d);
+                odds.draw = std::stod(d);
                 
                 std::cout << "Away odds: ";
                 std::getline(std::cin, a);
-                odds[2] = std::stod(a);
+                odds.away = std::stod(a);
                 
                 pre.predict(home, away, odds);
                 
